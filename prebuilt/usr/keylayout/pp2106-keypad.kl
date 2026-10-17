@@ -1,0 +1,43 @@
+# LG D486 (vfp) PP2106 keypad
+# Scancodes come from pp2106_keycode[] in board-8926-vfp-kr.c
+
+# Navigation
+key 103   DPAD_UP
+key 108   DPAD_DOWN
+key 105   DPAD_LEFT
+key 106   DPAD_RIGHT
+key 28    DPAD_CENTER
+
+# Android keys
+key 158   BACK
+key 102   HOME
+key 139   MENU
+
+# Call keys
+key 231   CALL
+key 174   DEL
+key 116   ENDCALL
+
+# Shortcut keys (stock used LG-only KANA/DVR/STB_POWER codes)
+key 59    MENU
+key 60    APP_SWITCH
+key 61    NOTIFICATION
+key 62    CONTACTS
+
+# Dial pad
+key 2     1
+key 3     2
+key 4     3
+key 5     4
+key 6     5
+key 7     6
+key 8     7
+key 9     8
+key 10    9
+key 11    0
+key 63    STAR
+key 64    POUND
+
+key 115   VOLUME_UP
+key 114   VOLUME_DOWN
+key 212   CAMERA

@@ -1,0 +1,19 @@
+# LG D486 (vfp) specific init
+
+on boot
+    # LP5521 RGB notification LED
+    chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_current_index
+    chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_pattern
+    chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_blink
+    chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/R/brightness
+    chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/G/brightness
+    chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/B/brightness
+
+    # PP2106 keypad
+    chown system system /sys/devices/platform/pp2106-keypad.0/newhw
+
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
+    writepid /dev/cpuset/system-background/tasks

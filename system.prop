@@ -1,0 +1,24 @@
+# Display
+ro.sf.lcd_density=160
+
+# Telephony
+telephony.lteOnGsmDevice=1
+ro.telephony.default_network=9
+
+# Sensors (ADSP)
+ro.qualcomm.sensors.qmd=false
+ro.qc.sdk.sensors.gestures=false
+ro.qualcomm.sensors.pedometer=false
+ro.qc.sensors.step_detector=true
+ro.qc.sensors.step_counter=true
+ro.qualcomm.sensors.pam=false
+ro.qualcomm.sensors.scrn_ortn=false
+ro.qualcomm.sensors.smd=true
+ro.qualcomm.sensors.game_rv=false
+ro.qualcomm.sensors.georv=false
+
+# Bluetooth
+qcom.bluetooth.soc=smd
+
+# Memory
+ro.config.max_starting_bg=8
