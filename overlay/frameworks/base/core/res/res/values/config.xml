@@ -15,9 +15,9 @@
      limitations under the License.
 -->
 <resources>
-    <!-- Flip phone with a hardware keypad: Home, Back, Menu, App switch, Camera, Volume -->
+    <!-- Flip phone with a hardware keypad: Home, Back, App switch, Camera, Volume -->
     <bool name="config_showNavigationBar">false</bool>
-    <integer name="config_deviceHardwareKeys">119</integer>
+    <integer name="config_deviceHardwareKeys">115</integer>
     <integer name="config_deviceHardwareWakeKeys">0</integer>
 
     <string name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|HSPAP|GSM|WCDMA|LTE</string>

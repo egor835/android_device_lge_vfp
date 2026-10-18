@@ -11,17 +11,17 @@ key 28    DPAD_CENTER
 # Android keys
 key 158   BACK
 key 102   HOME
-key 139   MENU
+key 139   APP_SWITCH
 
 # Call keys
 key 231   CALL
 key 174   DEL
 key 116   ENDCALL
 
-# Shortcut keys (stock used LG-only KANA/DVR/STB_POWER codes)
-key 59    MENU
-key 60    APP_SWITCH
-key 61    NOTIFICATION
+# Keys around the d-pad (stock used LG-only KANA/DVR/STB_POWER codes)
+key 60    SOFT_LEFT
+key 61    SOFT_RIGHT
+key 59    ENVELOPE
 key 62    CONTACTS
 
 # Dial pad
