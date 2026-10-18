@@ -47,3 +47,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 MALLOC_SVELTE := true
 WITH_DEXPREOPT := true
 DONT_DEXPREOPT_PREBUILTS := true
+
+# Charger: let the CM charger turn on the LM3530 backlight
+BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
+HEALTHD_BACKLIGHT_LEVEL := 100

@@ -19,6 +19,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 LOCAL_PATH := device/lge/vfp
 
+# Camera: autofocus, but no flash. msm8226-common installs the flash-autofocus
+# feature file; PRODUCT_COPY_FILES keeps the first entry for a destination, so
+# put the plain autofocus feature at that path first.
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
