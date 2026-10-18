@@ -40,31 +40,48 @@ all of them are shipped:
 
 ## Installing
 
-The stock bootloader is locked, so this ROM boots through
-[lk2nd](https://github.com/msm8916-mainline/lk2nd) (msm8226 build, 23.1 or newer):
-lk2nd lives in the first 512 KiB of the `boot` partition and boots the Android image
-stored right after it. lk2nd's fastboot takes care of that offset for `boot`.
+The retail D486 aboot only boots LG-signed images and has no fastboot. Both ways below
+need the **unlocked prototype aboot** (`FX_VZW_US`, from the Firefox OS prototype) in the
+`aboot` partition: it boots unsigned images and provides fastboot. It is attached to the
+releases (`aboot.img`, `abootb.img`).
 
-1. Install lk2nd into `boot` (e.g. from TWRP or a rooted shell):
+> Flashing a bootloader can hard-brick the phone. Make a full eMMC backup first and make
+> sure you can reach Qualcomm EDL mode (9008) to restore it.
+
+```
+# from TWRP or a root shell
+dd if=aboot.img  of=/dev/block/platform/msm_sdcc.1/by-name/aboot
+dd if=abootb.img of=/dev/block/platform/msm_sdcc.1/by-name/abootb
+```
+
+Prototype aboot fastboot: hold **Volume Down** while powering on until the first
+vibration, or `adb reboot bootloader` (`fastboot getvar product` → `FX_VZW_US`).
+
+### A. TWRP + zip (recommended)
+
+1. Boot TWRP from the release: `fastboot boot twrp-vfp.img` (or `fastboot flash recovery`).
+2. Wipe data/cache if coming from stock, then install the LineageOS zip.
+   The zip refuses to install if `aboot` is not the prototype one.
+3. Reboot: the prototype aboot boots LineageOS straight from `boot`.
+
+### B. Through lk2nd
+
+[lk2nd](https://github.com/msm8916-mainline/lk2nd) (msm8226, 23.1+) lives in the first
+512 KiB of `boot` and boots the Android image stored right after it; its fastboot takes
+care of that offset.
+
+1. Write lk2nd to `boot` (zero the partition first):
    ```
    dd if=/dev/zero of=/dev/block/platform/msm_sdcc.1/by-name/boot bs=1M
    dd if=lk2nd-msm8226.img of=/dev/block/platform/msm_sdcc.1/by-name/boot
    ```
-2. Reboot. With no Android image in `boot` you land in lk2nd fastboot
-   (`fastboot getvar product` → `lk2nd-msm8226`). Once a ROM is installed, enter lk2nd by
-   holding Volume Down while powering on.
-   Note: `adb reboot bootloader` goes to the stock aboot fastboot, not lk2nd.
-3. Flash the images from `out/target/product/vfp`:
-   ```
-   fastboot flash system system.img
-   fastboot flash boot boot.img
-   fastboot flash cache cache.img
-   fastboot flash userdata userdata.img   # wipes data
-   fastboot reboot
-   ```
+2. With no Android image after it you land in lk2nd fastboot
+   (`fastboot getvar product` → `lk2nd-msm8226`). With a ROM installed, press Volume Down
+   *after* the first vibration (pressing it before the vibration enters the aboot
+   fastboot instead).
+3. `fastboot flash system system.img`, `boot`, `cache`, `userdata`, then `fastboot reboot`.
 
-Do **not** flash the OTA zip from TWRP as is: its updater script writes `boot.img` over the
-whole `boot` partition and removes lk2nd.
+Installing the zip from TWRP replaces lk2nd (it writes the whole `boot` partition).
 
 ## Building
 

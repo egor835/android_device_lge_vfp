@@ -19,6 +19,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 LOCAL_PATH := device/lge/vfp
 
+# OTA: refuse to install over a locked aboot
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/releasetools/check_aboot.sh:install/bin/check_aboot.sh
+
 # Camera: autofocus, but no flash. msm8226-common installs the flash-autofocus
 # feature file; PRODUCT_COPY_FILES keeps the first entry for a destination, so
 # put the plain autofocus feature at that path first.
