@@ -102,3 +102,20 @@ vendor/lib/libmmqjpeg_codec.so
 vendor/lib/liboemcamera.so
 vendor/lib/libqomx_jpegdec.so
 vendor/lib/libqomx_jpegenc.so
+
+# Camera: Sony IMX219 (rear) and Hynix HI707 (front); HI544 is an alternative rear sensor
+lib/libchromatix_imx219_common.so
+lib/libchromatix_imx219_default_video.so
+lib/libchromatix_imx219_imtech_common.so
+lib/libchromatix_imx219_imtech_default_video.so
+lib/libchromatix_imx219_imtech_preview.so
+lib/libchromatix_imx219_imtech_skt_default_video.so
+lib/libchromatix_imx219_imtech_snapshot.so
+lib/libchromatix_imx219_mms_video.so
+lib/libchromatix_imx219_preview.so
+lib/libchromatix_imx219_skt_default_video.so
+lib/libchromatix_imx219_snapshot.so
+lib/libmmcamera_hi707.so
+lib/libmmcamera_imx219.so
+lib/libmorpho_image_stab31.so
+lib/libmorpho_noise_reduction.so

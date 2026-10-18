@@ -1,5 +1,10 @@
 # LG D486 (vfp) specific init
 
+# This file is imported after mount_all, so early-init/init triggers never fire here
+on post-fs
+    # Keep msm8226-common's shim and add ours for the stock (KK) camera HAL
+    export LD_SHIM_LIBS /system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so:/system/lib/hw/camera.vendor.msm8226.so|libshim_camera.so
+
 on boot
     # LP5521 RGB notification LED
     chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_current_index

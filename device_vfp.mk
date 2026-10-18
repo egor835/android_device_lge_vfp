@@ -48,6 +48,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/lge/g2m/proprietary/lib/libbtnv.so:system/lib/libbtnv.so
 
+# Shims
+PRODUCT_PACKAGES += \
+    libshim_camera
+
 # Features
 BOARD_HAS_QCOM_WCNSS := true
 BOARD_HAS_NFC := false
