@@ -9,6 +9,9 @@ on boot
     chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/G/brightness
     chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/B/brightness
 
+    # Keypad backlight
+    chown system system /sys/devices/leds-qpnp-e252fe00/leds/button-backlight/brightness
+
     # PP2106 keypad
     chown system system /sys/devices/platform/pp2106-keypad.0/newhw
 
