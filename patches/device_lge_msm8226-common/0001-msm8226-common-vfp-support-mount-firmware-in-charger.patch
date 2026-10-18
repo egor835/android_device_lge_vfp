@@ -1,0 +1,82 @@
+From 39ce8052af4a1b7ddbe12318bf353d6bca388b40 Mon Sep 17 00:00:00 2001
+From: Egor 835 <egor.su.8@gmail.com>
+Date: Sun, 18 Oct 2026 17:12:48 +0300
+Subject: [PATCH] msm8226-common: vfp support, mount /firmware in charger mode
+
+- build the common HALs, camera wrapper for vfp (it ships its own lights HAL)
+- charger: mount the modem partition on /firmware. rmt_storage boots the
+  modem there and its firmware request otherwise blocked for 60s; a reboot
+  (power key in charger) waited for it in __usermodehelper_disable
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Change-Id: Idfc1245c6635b434fb50fa69d71645dde9e3bba7
+---
+ Android.mk           | 2 +-
+ camera/Android.mk    | 2 +-
+ liblight/Android.mk  | 5 +++++
+ rootdir/init.qcom.rc | 4 ++++
+ 4 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/Android.mk b/Android.mk
+index b1b5fc2..9c4d141 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -16,7 +16,7 @@
+ #
+ LOCAL_PATH := $(call my-dir)
+ 
+-ifneq ($(filter w7 jag3gds jagnm g2m w5 w55ds w3ds,$(TARGET_DEVICE)),)
++ifneq ($(filter w7 jag3gds jagnm g2m w5 w55ds w3ds vfp,$(TARGET_DEVICE)),)
+ 
+ include $(call all-makefiles-under,$(LOCAL_PATH))
+ 
+diff --git a/camera/Android.mk b/camera/Android.mk
+index 4556ea9..05f8b65 100644
+--- a/camera/Android.mk
++++ b/camera/Android.mk
+@@ -1,6 +1,6 @@
+ LOCAL_PATH := $(call my-dir)
+ 
+-ifneq ($(filter w3ds w5 w55ds w7 g2m jag3gds jagnm,$(TARGET_DEVICE)),)
++ifneq ($(filter w3ds w5 w55ds w7 g2m jag3gds jagnm vfp,$(TARGET_DEVICE)),)
+ 
+ include $(CLEAR_VARS)
+ 
+diff --git a/liblight/Android.mk b/liblight/Android.mk
+index 9776fa2..5f14e82 100644
+--- a/liblight/Android.mk
++++ b/liblight/Android.mk
+@@ -12,6 +12,9 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++# vfp ships its own lights HAL for the LP5521 RGB LED
++ifneq ($(TARGET_DEVICE),vfp)
++
+ LOCAL_PATH:= $(call my-dir)
+ # HAL module implemenation stored in
+ # hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.board.platform>.so
+@@ -25,3 +28,5 @@ LOCAL_MODULE := lights.$(TARGET_BOARD_PLATFORM)
+ LOCAL_MODULE_TAGS := optional
+ 
+ include $(BUILD_SHARED_LIBRARY)
++
++endif
+diff --git a/rootdir/init.qcom.rc b/rootdir/init.qcom.rc
+index 7adc1e5..1f376fa 100644
+--- a/rootdir/init.qcom.rc
++++ b/rootdir/init.qcom.rc
+@@ -546,6 +546,10 @@ on property:init.svc.brcm_hwaddrs=stopped
+ on charger
+     wait /dev/block/platform/msm_sdcc.1/by-name/system
+     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system ro barrier=1
++    # rmt_storage brings the modem up: its firmware (mba.mdt etc) must be
++    # reachable, otherwise the request blocks for 60s and so does a reboot
++    wait /dev/block/platform/msm_sdcc.1/by-name/modem
++    mount vfat /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0
+     start rmt_storage
+ 
+     write /sys/module/lpm_levels/enable_low_power/l2 1
+-- 
+2.55.0
+

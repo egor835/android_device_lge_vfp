@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- LG Wine Smart D486 / F480 (vfp): put this in .repo/local_manifests/ -->
+<manifest>
+  <project name="egor835/android_device_lge_vfp" path="device/lge/vfp" remote="github" revision="cm-14.1" />
+  <project name="egor835/android_kernel_lge_vfp" path="kernel/lge/vfp" remote="github" revision="cm-14.1-vfp" />
+  <project name="egor835/proprietary_vendor_lge_vfp" path="vendor/lge/vfp" remote="github" revision="cm-14.1" />
+
+  <!-- msm8226-common and its dependencies -->
+  <project name="LineageOS/android_device_lge_msm8226-common" path="device/lge/msm8226-common" remote="github" revision="cm-14.1" />
+  <project name="LineageOS/android_device_qcom_common" path="device/qcom/common" remote="github" revision="cm-14.1" />
+  <project name="LineageOS/android_external_sony_boringssl-compat" path="external/sony/boringssl-compat" remote="github" revision="cm-14.1" />
+  <project name="LineageOS/android_packages_resources_devicesettings" path="packages/resources/devicesettings" remote="github" revision="cm-14.1" />
+  <project name="TheMuppets/proprietary_vendor_lge" path="vendor/lge" remote="github" revision="cm-14.1" />
+</manifest>
