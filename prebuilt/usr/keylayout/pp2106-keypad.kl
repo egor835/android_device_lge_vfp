@@ -18,11 +18,12 @@ key 231   CALL
 key 174   DEL
 key 116   ENDCALL
 
-# Keys around the d-pad (stock used LG-only KANA/DVR/STB_POWER codes)
+# Keys around the d-pad (stock used LG-only KANA/DVR/STB_POWER codes).
+# Envelope -> MENU, contacts -> META_LEFT.
 key 60    SOFT_LEFT
 key 61    SOFT_RIGHT
-key 59    ENVELOPE
-key 62    CONTACTS
+key 59    MENU
+key 62    META_LEFT
 
 # Dial pad
 key 2     1

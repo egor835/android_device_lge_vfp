@@ -14,20 +14,20 @@
 # limitations under the License.
 #
 
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 LOCAL_PATH := device/lge/vfp
-
-# OTA: refuse to install over a locked aboot
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/check_aboot.sh:install/bin/check_aboot.sh
 
 # Camera: autofocus, but no flash. msm8226-common installs the flash-autofocus
 # feature file; PRODUCT_COPY_FILES keeps the first entry for a destination, so
 # put the plain autofocus feature at that path first.
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml
+
+# PrintSpooler is not built: drop android.software.print. Comes before
+# msm8226-common's copy of the stock file, so this one wins.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -72,6 +72,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.low_ram=false \
     dalvik.vm.jit.codecachesize=0 \
     ro.sf.lcd_density=160
+
+# Dalvik heap: ~880 MB usable RAM. The phone-hdpi-512 profile (48m growth
+# limit) makes modern apps (media3/Compose) throw OutOfMemoryError.
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapstartsize=8m \
+    dalvik.vm.heapgrowthlimit=96m \
+    dalvik.vm.heapsize=192m \
+    dalvik.vm.heaptargetutilization=0.75 \
+    dalvik.vm.heapminfree=2m \
+    dalvik.vm.heapmaxfree=8m
 
 $(call inherit-product, device/lge/msm8226-common/msm8226.mk)
 $(call inherit-product, vendor/lge/vfp/vfp-vendor.mk)

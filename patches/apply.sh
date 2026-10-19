@@ -23,3 +23,6 @@ apply() {
 apply art art
 apply device/lge/msm8226-common device_lge_msm8226-common
 apply vendor/lge vendor_lge
+apply build build
+apply vendor/cm vendor_cm
+apply frameworks/base frameworks_base

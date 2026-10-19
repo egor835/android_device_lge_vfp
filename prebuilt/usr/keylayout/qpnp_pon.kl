@@ -19,5 +19,8 @@
 # Notes:
 #
 
-key 116	POWER				WAKE
+# Power doubles as the red key: short press hangs up (PhoneWindowManager
+# calls TelecomManager.endCall()), long press opens the power menu. Outside
+# a call a short press goes home (end_button_behavior=1, as on stock).
+key 116	ENDCALL				WAKE
 

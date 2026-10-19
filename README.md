@@ -61,7 +61,8 @@ vibration, or `adb reboot bootloader` (`fastboot getvar product` → `FX_VZW_US`
 
 1. Boot TWRP from the release: `fastboot boot twrp-vfp.img` (or `fastboot flash recovery`).
 2. Wipe data/cache if coming from stock, then install the LineageOS zip.
-   The zip refuses to install if `aboot` is not the prototype one.
+   The zip does not check `aboot`: make sure yours boots unsigned images (the prototype
+   one, or a stock aboot with the signature check patched out).
 3. Reboot: the prototype aboot boots LineageOS straight from `boot`.
 
 ### B. Through lk2nd
